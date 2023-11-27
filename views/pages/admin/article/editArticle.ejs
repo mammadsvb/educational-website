@@ -1,0 +1,81 @@
+
+<% if(massages.length) { %>
+  <div class="alert alert-danger" role="alert">
+      
+      <% massages.forEach(msg=>{ %>
+          
+          <p><%= msg %></p>  
+      
+      <% }) %>
+  </div>
+<% } %>
+      
+
+
+<div class="container">
+  <h1>Edit Article</h1>
+  
+  <form action="/admin/article/<%= article._id %>?_method=PUT" method="post" enctype="multipart/form-data"  >
+    <div class="mb-3">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" name="title" placeholder="Enter the title of your article" value="<%= article.title %>">
+    </div>
+
+    <div class="mb-3">
+      <label for="categoreis">Category:</label>
+      <select class="js-select2" id="categoreis" name="categoreis" multiple="multiple">
+        <% categoreis.forEach(category=>{%>
+          
+          <option value="<%=category._id%>" <% if (article.categoreis.indexOf(category._id) != -1) { %> selected<% } %>  ><%= category.name %></option>
+   
+        <%})%>
+  
+      </select>
+    </div>
+    
+
+    <div class="mb-3">
+      <label for="content">Content:</label>
+      <textarea class="form-control" id="content" name="content" placeholder="Enter the content of your article"><%= article.content %></textarea>
+    </div>
+    
+    <div class="mb-3">
+      <label for="image">Image:</label>
+      <input type="file" class="form-control" id="image" name="image" accept="image/*">
+      
+    </div>
+
+    <div class="mb-3">
+      <% for(const [size,image] of Object.entries(article.images)){ %>
+      
+        <%= size %>
+
+        <label >
+            <a href="<%= image %>"> <img width="100px" height="100px" src="<%= image%>" alt="">   </a>
+        </label>
+      
+      <% } %>
+      
+    </div>
+
+    <div class="mb-3">
+      <div class="container  ">
+        <div class="row row-cols-2">
+          
+          <div class="col">
+            
+            <label for="tags">Tages:</label>
+            <input type="text" class="form-control" id="tags" name="tags" placeholder="tags" value="<%= article.tags %>">
+  
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+
+
+    
+    <button type="submit" class="btn btn-primary">Edit Article</button>
+  </form>
+</div>

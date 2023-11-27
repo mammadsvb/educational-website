@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-3">
+          <div class="card-img-top">
+            <img src="<%= article.images['480'] %>" style="height: 325px; width: 100%; object-fit: cover; display: block;"alt="article Image">
+          </div>
+          <div class="card-body">
+            <h1 class="card-title"><%= article.title.toUpperCase() %></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        
+        
+        <div class="col-md-9">
+            <div class="card mb-3">
+                <div class="card-header">Article Description</div>
+                <div class="card-body"> <%= article.content %> </div>
+            </div>
+                     
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-header">Article Details</div>
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item">Instructor: <%=article.user.username%></li>
+                    <li class="list-group-item">Comments : <%=article.commentCount%></li>
+                    <li class="list-group-item">Views : <%=article.viewCount%></li>
+                  </ul>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+              <div class="card-header">Categoreis</div>
+              <div class="">
+                <ul class="">
+                  <% categoreis.forEach(category =>{%> 
+      
+                    <li class="my-2"><%= category.name %></li>
+      
+                    <ul>
+                    <% category.childs.forEach(child =>{%> 
+                         
+                        <li class="my-2"><%= child.name %></li>
+      
+                    <%})%>
+                    </ul>
+                  <%})%>
+                </ul>
+              </div>
+          </div>
+        </div>
+
+        
+            
+    </div>
+    
+  </div>
+  <%-include('../../../partials/comment',{data:article})%>

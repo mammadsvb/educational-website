@@ -1,0 +1,93 @@
+<main role="main">
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Album example</h1>
+      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+
+        <h5>Courses</h5>
+        <% courses.forEach(course => {%> 
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              
+              <% Object.entries(course.image).forEach(([size,image])=>{ %> 
+              
+                <% if(size == 360){ %> 
+                 
+                  <a href="<%= `/course/${course.slug}` %>"><img class="card-img-top" alt="<%= course.title %>" src="<%= image %>" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;"></a>
+                  
+                <%} %>   
+                
+              <%})%>
+              
+              
+              
+              
+              <div class="card-body">
+                <h4><%=course.title%></h4>
+                <p class="card-text"><%= course.content.substr(0,100) %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="<%=`/course/${course.slug}`%>"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  </div>
+                  <small class="text-muted"><%=course.viewCount%></small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+        
+          <%}) %>
+        
+          <h5>Articles</h5>
+          <% articles.forEach(article => {%> 
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                
+                <% Object.entries(article.images).forEach(([size,image])=>{ %> 
+                
+                  <% if(size == 360){ %> 
+                   
+                    <a href="<%= `/article/${article.slug}` %>"><img class="card-img-top" alt="<%= article.title %>" src="<%= image %>" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;"></a>
+                    
+                  <%} %>   
+                  
+                <%})%>
+                
+                
+                
+                
+                <div class="card-body">
+                  <h4><%=article.title%></h4>
+                  <p class="card-text"><%= article.content.substr(0,100) %></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href="<%=`/article/${article.slug}`%>"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                    </div>
+                    <small class="text-muted"><%=article.viewCount%></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+          
+            <%}) %>
+        
+        
+      </div>
+    </div>
+  </div>
+
+</main>

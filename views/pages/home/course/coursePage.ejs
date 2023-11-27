@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-3">
+          <div class="card-img-top">
+            <img src="<%= course.image['480'] %>" style="height: 325px; width: 100%; object-fit: cover; display: block;"alt="Course Image">
+          </div>
+          <div class="card-body">
+            <h1 class="card-title"><%= course.title.toUpperCase() %></h1>
+            <h6><%=course.user.username%> published at <%=convertTime(course.createdAt).format("MMM Do YY") %></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-header">Course Description</div>
+          <div class="card-body">
+            <%= course.content %>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">Course Curriculum</div>
+          
+          <div class="card-body">
+            
+            <table class="table">
+                
+                <tbody>
+                    <% course.episodes.forEach(episode=> { %>
+                        <tr>
+                            <td><%=episode.number%></td>
+                            <td><%=episode.title%></td>
+                            <td><%=episode.time%></td>
+                            <td><a href="<%=episode.download(auth.check,accessUser)%>">download</a></td>
+
+                        </tr>
+                        
+                        <%})%>
+                </tbody>
+           
+            </table>
+
+          </div>
+
+          
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <div class="card-header">Course Shopping</div>
+          <div >
+            <p class="mx-3 mt-2">Price: <%=course.price%>$</p>
+            <button type="submit" class="btn btn-primary my-3 mx-5" style="width: 80%;">Buy Course</button>
+
+            <%if(auth.check){%>
+              <% if(!accessUser){%>
+
+                <% if(course.type == 'vip'){%>
+                  
+                  <div class="alert alert-danger text-center  mx-3"style="width: 90%;" role="alert">
+                    You must be vip memmber
+                  </div>
+                  
+                <%}else if(course.type == 'cash'){%>
+                  
+                  <div class="alert alert-danger text-center  mx-3"style="width: 90%;" role="alert">
+                    You must buy this course
+                  </div>
+
+                <%}%>
+              <%}else{%>
+
+                <div class="alert alert-success text-center mx-3"style="width: 90%;" role="alert">
+                  You buy this course already
+                </div>
+
+              <%}%>
+              
+            <%}%>
+
+            </div>
+        </div>
+
+            <div class="card mb-3">
+                <div class="card-header">Course Details</div>
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item">Instructor: <%=course.user.username%></li>
+                    <li class="list-group-item">Time: <%=course.time%></li>
+                    <li class="list-group-item">Type: <%=course.type.charAt(0).toUpperCase() + course.type.slice(1) %></li>
+                    <li class="list-group-item">Price: <%=course.price%>$</li>
+                    <li class="list-group-item">Episodes: <%=course.episodes.length%></li>
+                    <li class="list-group-item">Comments : <%=course.commentCount%></li>
+                    <li class="list-group-item">Views : <%=course.viewCount%></li>
+                  </ul>
+                </div>
+
+                
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">Categoreis</div>
+        <div class="">
+          <ul class="">
+            <% categoreis.forEach(category =>{%> 
+
+              <li class="my-2"><%= category.name %></li>
+
+              <ul>
+              <% category.childs.forEach(child =>{%> 
+                   
+                  <li class="my-2"><%= child.name %></li>
+
+              <%})%>
+              </ul>
+            <%})%>
+          </ul>
+        </div>
+    </div>
+    
+  </div>
+  <%-include('../../../partials/comment',{data:course})%>

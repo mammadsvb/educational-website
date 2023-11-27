@@ -1,0 +1,93 @@
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="card  mb-3" style="width: 18rem; height: 8rem;">
+
+          <div class="card-body">
+            <h5 class="card-title">Courses</h5>
+            <p class="card-text"><%=user.courses.length%></p>
+
+          </div>
+        </div>
+
+        <div class="card mb-3" style="width: 18rem; height: 8rem;">
+          <div class="card-body">
+            <h5 class="card-title">Articles</h5>
+            <p class="card-text"><%=user.articles.length%></p>
+
+          </div>
+        </div>
+
+        <div class="card mb-3" style="width: 18rem; height: 8rem;">
+          <div class="card-body">
+            <h5 class="card-title">Comments</h5>
+            <p class="card-text"><%=user.comments.length%></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container">
+  <% if(massages.length) { %>
+    <div class="alert alert-danger" role="alert">
+        
+        <% massages.forEach(msg=>{ %>
+            
+            <p><%= msg %></p>  
+        
+        <% }) %>
+    </div>
+  <% } %>
+        
+  
+  <% if(success.length) { %>
+    <div class="alert alert-success" role="alert">
+            
+        <% success.forEach(succ=>{ %>
+                
+            <p><%= succ %></p>  
+            
+        <% }) %>
+    </div>
+  
+  <% } %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-3">
+          <div class="card-header">User Profile Edit Info</div>
+          <div class="card-body">
+            <form action="/admin/profile/<%=user._id%>?_method=PUT" method="POST" novalidate>
+              <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" value="<%=user.username%>">
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" disabled class="form-control" id="email" name="username" value="<%=user.email%>">
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Enter Password:</label>
+                <input type="password"  class="form-control" id="password" name="password" value="ENTER PASSWORD">
+              </div>
+
+             
+
+              <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

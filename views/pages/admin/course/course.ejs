@@ -1,0 +1,75 @@
+
+
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Courses</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Courses</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Tags</th>
+                            <th>Setting</th>
+                            
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Tags</th>
+                            <th>Setting</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+
+                        <% courses.forEach(course => { %>
+
+                            <tr>
+                                <td><%= course.title %></td>
+                                <td><%= course.type %></td>
+                                <td><%= course.price %></td>
+                                <td><%= course.tags %></td>
+                                <td>
+                                    <form action="/admin/course/<%= course._id %>?_method=DELETE" method="POST">
+
+                                        <button type="submit" class="btn btn-danger btn-circle ml-3 mr-3">
+                                        <i class="fas fa-trash"></i></button>
+                                        
+                                        <a href="/admin/course/edit/<%= course.id %>" class="btn btn-warning btn-circle">
+                                        <i class="fas fa-exclamation-triangle"></i></a>
+                                    
+                                    </form>
+                                </td>
+                            </tr>                        
+                        
+                        
+                        <% }) %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

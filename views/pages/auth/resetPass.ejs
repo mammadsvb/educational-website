@@ -1,0 +1,48 @@
+<div class="container">
+
+    <% if(massages.length) { %>
+        <div class="alert alert-danger" role="alert">
+            
+            <% massages.forEach(msg=>{ %>
+                
+                <p><%= msg %></p>  
+            
+            <% }) %>
+        </div>
+    <% } %>
+            
+
+    <% if(success.length) { %>
+        <div class="alert alert-success" role="alert">
+                
+            <% success.forEach(succ=>{ %>
+                    
+                <p><%= succ %></p>  
+                
+            <% }) %>
+        </div>
+
+    <% } %>
+            
+    
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Reset Password</h1>
+            
+            <form action="/auth/password/email" method="post">
+            
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address">
+                </div>
+
+                <%- recaptcha %>
+
+                <button type="submit" class="btn btn-primary">Send</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+

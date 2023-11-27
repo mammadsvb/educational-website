@@ -1,0 +1,138 @@
+<% let {search,old,type,category} = req.query %>
+
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">COURSES</h1>
+            <p class="lead text-muted">All courses</p>
+            <form action="/courses" method="GET">
+                <div class="input-group md-form form-sm form-2 pl-0">
+                    <input class="form-control my-0 py-1 red-border" type="text"
+                        placeholder="search your course" aria-label="Search" name="search">
+                    <div class="input-group-append">
+                        <button type="submit" class="input-group-text red lighten-3" id="basic-text1">search</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <!--Section: Post-->
+        <section>
+            <!-- Title -->
+            <h1 class="mb-3"></h1>
+
+            <!--Grid row-->
+            <div class="row">
+
+                
+                <div class="col-md-3 mb-4">
+                    <!--Card : Dynamic content wrapper-->
+                    <div class="card mb-4 wow fadeIn">
+
+                        <h5 class="card-header"> Filter Info </h5>
+                        <!--Card content-->
+                        <div class="card-body">
+                            <form class="form-horizontal" method="GET" action="/courses">
+                                <label>Search: <%= search %> </label>
+                                <div class="form-group mt-2">
+                                    <label for="type" class="control-label mb-1 font-weight-bold font-weight-bold">Type:</label>
+                                    <select name="type" id="type" class="form-control">
+                                        <option value="all" <% if( type == 'all'){ %> selected <%}%> >all</option>
+                                        <option value="vip" <% if( type == 'vip'){ %> selected <%}%> >vip</option>
+                                        <option value="cash"<% if( type == 'cash'){ %> selected <%}%> >cash</option>
+                                        <option value="free"<% if( type == 'free '){ %> selected <%}%> >free</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mt-2">
+                                    <label for="category" class="control-label mb-1 font-weight-bold font-weight-bold">Type:</label>
+                                    <select name="category" id="category" class="form-control">
+                                        
+                                        <option value="all"  >all</option>
+                                        
+                                        <% categoreis.forEach(cate=>{%> 
+                                            <option value="<%=cate.slug%>" <% if( cate.slug == category){ %> selected <%}%> ><%=cate.name%></option>
+                                        <%})%>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group my-2">
+                                    <input id="remember" type="checkbox" class="checkbox" name="old" <% if(old){%>checked <%}%> value="1">
+                                    oldest courses
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-sm btn-primary">Filter</button>
+                                    <a href="/courses" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                    <!--/.Card : Dynamic content wrapper-->
+
+                    <!--Card-->
+                    
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-8 mb-4">
+
+                    <!-- body -->
+                    <div class="album">
+                        <div class="container">
+                            
+                            <div class="row">
+                                
+                                <% courses.docs.forEach(course => {%>
+                                    <div class="col-md-4">
+                                        <div class="card mb-4">
+                                            <% Object.entries(course.image).forEach(([size,image])=>{ %>
+                                                
+                                                <% if(size == 360) {%>
+                                                
+                                                    <a href="<%= `/course/${course.slug}` %>"><img class="card-img-top" src="<%=image %>"
+                                                    alt="" width="100%"
+                                                    style="width: 100%; height: 200px; object-fit : cover"></a>
+                                               
+                                                <%}%>
+                                            <%})%>
+                                            
+                                            <div class="card-body">
+                                                <h5 class="card-text"><%= course.title %></h5>
+                                                <p class="card-text"> <%= course.content.substr(35)%></p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="btn-group">
+                                                        <a href="<%= `/course/${course.slug}` %>"
+                                                            class="btn btn-sm btn-outline-secondary">View</a>
+                                                    </div>
+                                                    <small class="text-muted"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <%})%>
+
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!--Section: Post-->
+        
+    </div>
+    
+    <%- include('../../../partials/paginate',{pagination:courses,baseUrl:'courses'}) %>
+  </main>

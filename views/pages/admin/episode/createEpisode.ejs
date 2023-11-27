@@ -1,0 +1,110 @@
+
+<% if(massages.length) { %>
+    <div class="alert alert-danger" role="alert">
+        
+        <% massages.forEach(msg=>{ %>
+            
+            <p><%= msg %></p>  
+        
+        <% }) %>
+    </div>
+  <% } %>
+        
+  
+  <% if(success.length) { %>
+    <div class="alert alert-success" role="alert">
+            
+        <% success.forEach(succ=>{ %>
+                
+            <p><%= succ %></p>  
+            
+        <% }) %>
+    </div>
+  
+  <% } %>
+  
+  
+  <div class="container">
+    <h1>Create New Episode</h1>
+    
+    <form action="/admin/episode/create" method="post"  >
+      <div class="mb-4">
+      
+        <div class="container text-center">
+          <div class="row align-items-center">
+            <div class="col">
+           
+              <label for="number">Number:</label>
+              <input type="text" class="form-control" id="number" name="number" placeholder="Enter the number of your Episode">
+            
+            </div>
+           
+
+           
+            <div class="col">
+           
+              <label for="title">Title:</label>
+              <input type="text" class="form-control" id="title" name="title" placeholder="Enter the title of your Episode">
+           
+            </div>
+          
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="mb-4">
+        <label for="type">Type:</label>
+        <select class="form-select form-select-sm" id="type" name="type" aria-label="Small select example">
+          <option value="vip">VIP</option>
+          <option value="cash">Cash</option>
+          <option value="free" selected>Free</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+           
+        <label for="course">Course:</label>
+        <select class="form-select form-select-sm" id="course" name="course" aria-label="Small select example">
+          <% courses.forEach(course => {%>
+          
+            <option value="<%= course._id %>"><%= course.title %></option>
+          
+          <%})%>
+     
+      </div>
+
+  
+      <div class="mb-4">
+        <label for="content">Content:</label>
+        <textarea class="form-control" id="content" name="content" placeholder="Enter the content of your Episode"></textarea>
+      </div>
+      
+  
+      <div class="mb-4">
+        <div class="container  ">
+          <div class="row row-cols-2">
+            <div class="col ">
+              
+              <label for="time">Time:</label>
+              <input type="text" class="form-control" id="time" name="time" placeholder="Time">
+    
+            </div>
+            
+            <div class="col">
+              
+              <label for="videoUrl">Viedo URL:</label>
+              <input type="text" class="form-control" id="videoUrl" name="videoUrl" placeholder="Viedo URL">
+    
+            </div>
+    
+          </div>
+        </div>
+      </div>
+  
+  
+  
+      
+      <button type="submit" class="btn btn-primary">Create Episode</button>
+    </form>
+  </div>

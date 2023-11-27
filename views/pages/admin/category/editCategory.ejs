@@ -1,0 +1,46 @@
+
+<% if(massages.length) { %>
+    <div class="alert alert-danger" role="alert">
+        
+        <% massages.forEach(msg=>{ %>
+            
+            <p><%= msg %></p>  
+        
+        <% }) %>
+    </div>
+  <% } %>
+        
+  
+  
+  <div class="container">
+    <h1>Edit Category</h1>
+    
+    <form action="/admin/category/<%= category._id %>?_method=PUT" method="POST">
+      <div class="mb-3">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name"  value="<%= category.name %>">
+      </div>
+      
+      <div class="mb-3">
+        <label for="parent">Group:</label>
+        <select class="form-select form-select-sm" id="parent" name="parent" aria-label="Small select example">
+        
+          <option value="" <% if (category.parent == null) { %> selected<% } %>>main</option>
+
+
+            <% categories.forEach(cate =>{%>
+                <% if(cate.name != category.name ){%> 
+                        
+                    <option value="<%=cate._id%>" <% if ( category.parent != null && (String(cate.name) === String(category.parent.name))) { %> selected<% } %>  ><%=cate.name%></option>
+                        
+                
+                <%}%>
+                
+            <%})%>
+        </select>
+      </div>  
+  
+      
+      <button type="submit" class="btn btn-primary">Edit category</button>
+    </form>
+  </div>

@@ -1,0 +1,74 @@
+
+
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Articles</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Articles</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>View</th>
+                            <th>Comment</th>
+                            <th>Tags</th>
+                            <th>Setting</th>
+                            
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <th>Title</th>
+                            <th>View</th>
+                            <th>Comment</th>
+                            <th>Tags</th>
+                            <th>Setting</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+
+                        <% articles.forEach(article => { %>
+
+                            <tr>
+                                <td><%= article.title %></td>
+                                <td><%= article.viewCount %></td>
+                                <td><%= article.commentCount %></td>
+                                <td><%= article.tags %></td>
+                                <td>
+                                    <form action="/admin/article/<%= article._id %>?_method=DELETE" method="POST">
+
+                                        <button type="submit" class="btn btn-danger btn-circle ml-3 mr-3">
+                                        <i class="fas fa-trash"></i></button>
+                                        
+                                        <a href="/admin/article/edit/<%= article.id %>" class="btn btn-warning btn-circle">
+                                        <i class="fas fa-exclamation-triangle"></i></a>
+                                    
+                                    </form>
+                                </td>
+                            </tr>                        
+                        
+                        
+                        <% }) %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

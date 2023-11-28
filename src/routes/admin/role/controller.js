@@ -6,6 +6,14 @@ const Role = require('../../../models/role')
 
 module.exports = new class extends Controller{
 
+    async showPage(req,res){
+
+        const roles = await Role.find({}).populate('permissions');
+
+        // res.json(roles);
+        res.render('pages/admin/role/role',{roles})
+    }
+
     async showCreatePage(req,res){
         const permissions = await Permission.find({})
         res.render('pages/admin/role/createRole',{massages : req.flash('errors'),success : req.flash('success'),permissions})

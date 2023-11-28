@@ -17,4 +17,7 @@ roleValidator.handle(),
 roleController.validator,
 roleController.createRole)
 
+router.delete('/:id',
+roleController.destroy)
+
 module.exports = router;

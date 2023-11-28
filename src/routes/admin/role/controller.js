@@ -38,4 +38,13 @@ module.exports = new class extends Controller{
         this.back(req,res)
     }
 
+    async destroy(req,res){
+        const role = await Role.findByIdAndDelete(req.params.id);
+
+        if(!role)
+            return res.json('not Found');
+
+        res.redirect('/admin/role');
+    }
+
 }

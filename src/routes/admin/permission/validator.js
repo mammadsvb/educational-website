@@ -10,7 +10,7 @@ module.exports = new class{
                 .isLength({ min: 3 })
                 .withMessage('too short')
                 .custom(async (value, { req }) => {
-                    if(req.query._mehtod == 'PUT'){
+                    if(req.query._method == 'PUT'){
                         let permission = await Permission.findById(req.parems.id);
                         if(permission.name == value) return;
                     }

@@ -21,6 +21,11 @@ router.delete('/:id',
 roleController.destroy);
 
 router.get('/edit/:id',
-roleController.showEditPage)
+roleController.showEditPage);
+
+router.put('/:id',
+roleValidator.handle(),
+roleController.validator,
+roleController.update)
 
 module.exports = router;

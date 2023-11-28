@@ -55,4 +55,13 @@ module.exports = new class extends Controller{
         res.render('pages/admin/role/editRole',{massages:req.flash('errors') , role , permissions});
     }
 
+    async update(req,res){
+
+        const role = await Role.findByIdAndUpdate(req.params.id,{$set:{...req.body}})
+        if(!role)
+            return res.json('not found');
+
+        res.redirect('/admin/role');
+    }
+
 }

@@ -8,6 +8,7 @@ const articleRouter = require('../article');
 const categoryRouter = require('../category');
 const profileRouter = require('../profile');
 const permissionRouter = require('../permission');
+const roleRouter = require('../role');
 
 const adminController = require('./controller');
 
@@ -27,5 +28,6 @@ router.use('/article', articleRouter);
 router.use('/category',categoryRouter);
 router.use('/profile',profileRouter);
 router.use('/permission',permissionRouter);
+router.use('/role',roleRouter);
 
 module.exports = router;

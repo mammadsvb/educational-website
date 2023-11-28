@@ -105,7 +105,7 @@
                                             
                                             <div class="card-body">
                                                 <h5 class="card-text"><%= course.title %></h5>
-                                                <p class="card-text"> <%= course.content.substr(35)%></p>
+                                                <p class="card-text"> <%= course.content.substring(0,150)%> ...</p>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="btn-group">
                                                         <a href="<%= `/course/${course.slug}` %>"

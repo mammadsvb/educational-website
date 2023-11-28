@@ -15,9 +15,10 @@ module.exports = new class{
                         if(permission.name == value) return;
                     }
 
-                    let permission = await Permission.find({ name : value});
+                    let permission = await Permission.findOne({ name : value});
+
                     if(permission){
-                        return req.flash('errors' , 'این دسته بندی قبلا ایجاد شده است')
+                        return req.flash('errors' , 'already created.')
                     }
                 }),
             check('label').notEmpty().withMessage('label is empty'),

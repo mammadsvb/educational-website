@@ -12,7 +12,7 @@ permissionController.showCreatePage);
 
 router.post('/create',
 permissionValidator.handle(),
-permissionController.validation,
+permissionController.validator,
 permissionController.createPermission);
 
 router.get('/edit/:id',

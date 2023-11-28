@@ -5,7 +5,7 @@ module.exports = new class{
 
     handle(){
         return[
-            check('title').isLength({min:8}).withMessage("title is too short!"),
+            check('title').isLength({min:1}).withMessage("title is too short!"),
             check('type').notEmpty().withMessage("type is empty!"),
             check('content').isLength({min:10}).withMessage("content is too short!"),
             check('image').custom((value,{req}) => {

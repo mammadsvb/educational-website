@@ -18,7 +18,7 @@ module.exports = new class{
                     let permission = await Permission.findOne({ name : value});
 
                     if(permission){
-                        return req.flash('errors' , 'already created.')
+                        throw new Error('already created.')
                     }
                 }),
             check('label').notEmpty().withMessage('label is empty'),

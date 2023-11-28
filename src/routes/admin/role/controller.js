@@ -10,7 +10,6 @@ module.exports = new class extends Controller{
 
         const roles = await Role.find({}).populate('permissions');
 
-        // res.json(roles);
         res.render('pages/admin/role/role',{roles})
     }
 
@@ -45,6 +44,15 @@ module.exports = new class extends Controller{
             return res.json('not Found');
 
         res.redirect('/admin/role');
+    }
+
+    async showEditPage(req,res){
+
+        const role = await Role.findById(req.params.id);
+        const permissions = await Permission.find({});
+
+
+        res.render('pages/admin/role/editRole',{massages:req.flash('errors') , role , permissions});
     }
 
 }

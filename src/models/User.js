@@ -2,36 +2,47 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const uniqueString = require('unique-string');
 
+const Schema = mongoose.Schema
+
 const userSchema = new mongoose.Schema({
     username : {type  : String , required : true},
     email : {type  : String , required : true},
     password : {type  : String , required : true},
     rememberToken : {type : String , default : ''},
-    admin : {type : Boolean , default : false}
+    admin : {type : Boolean , default : false},
+    roles :[{type:Schema.Types.ObjectId , ref:'Role'}]
 },{
     timestamps : true,
     toJSON : {virtuals : true},
 })
 
-userSchema.pre('save',function(next){
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(this.password,salt);
-    this.password = hash;
+// userSchema.pre('save',function(next){
+//     const salt = bcrypt.genSaltSync(10);
+//     const hash = bcrypt.hashSync(this.password,salt);
+//     this.password = hash;
 
-    next();
-})
+//     next();
+// })
 
-userSchema.pre('findOneAndUpdate',function(next){
+// userSchema.pre('findOneAndUpdate',function(next){
 
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(this.getUpdate().$set.password,salt);
-    this.getUpdate().$set.password = hash;
+//     if(this.password != this.getUpdate()){
+//         const salt = bcrypt.genSaltSync(10);
+//         const hash = bcrypt.hashSync(this.getUpdate().$set.password,salt);
+//         this.getUpdate().$set.password = hash;
+//     }
     
-    next();
+//     next();
  
-})
+// })
 
+userSchema.methods.hashPass = function(password){
 
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password,salt);
+    
+    return hash;
+}
 
 
 userSchema.methods.comparePass = function(password){

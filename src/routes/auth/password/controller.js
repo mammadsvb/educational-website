@@ -75,12 +75,15 @@ class ChangePassword extends Controller{
                 return this.back(req,res);
             }
 
-            const user = await User.findOneAndUpdate({email:req.body.email},{$set : { password : req.body.password }});
+            const user = await User.findOne({email:req.body.email});
             if(!user){
                 req.flash('errors','user not found');
                 return this.back(req,res);
-            }           
+            }         
+            user.set({ password : user.hashPass(req.body.password)})  
   
+            await user.save();
+
             await resetPassword.updateOne({used : true});
 
             res.redirect('/auth/login')

@@ -10,7 +10,7 @@ loginController.showPage)
 
 router.post('/login',
 loginValidator.handle(),
-loginController.validator,
+// loginController.validator,
 loginController.loginUser
 )
 

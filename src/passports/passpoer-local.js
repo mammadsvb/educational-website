@@ -23,6 +23,8 @@ passport.use('local.register',new LocalStrategy({
         email,
         password,
     });
+    
+    addUser.password = addUser.hashPass(password);
 
     addUser.save()
     .then(user => done(null,user))

@@ -1,0 +1,27 @@
+  
+  <div class="container">
+    <h1>User Role</h1>
+    
+    <form action="/admin/user/addRole/<%= user._id%>?_method=PUT" method="POST"  >
+      <div class="mb-3">
+        <label for="name">User Info:</label>
+        <p class="form-control"><%=user.username%> - <%= user.email %> </p> 
+      </div>
+      
+
+      <div class="mb-3">
+        <label for="roles">Role:</label>
+        <select class="js-select2" id="roles" name="roles" multiple="multiple">
+          <% roles.forEach(role=>{%>
+            
+            <option value="<%=role._id%>" <%- user.roles.indexOf(role._id) != -1 ? 'selected' : ''%> ><%= role.name %></option>
+     
+          <%})%>
+    
+        </select>
+      </div>
+
+      
+      <button type="submit" class="btn btn-primary">Create User Role</button>
+    </form>
+  </div>

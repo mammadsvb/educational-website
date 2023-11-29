@@ -86,5 +86,21 @@ module.exports = new class extends Controller{
         await user.save();
         res.redirect('/admin/user')
     }
+
+    async showAddRolePage(req,res){
+        const user = await User.findById(req.params.id).populate('roles');
+        const roles = await Role.find({});
+
+        res.render('pages/admin/user/addRole',{user,roles})
+    }
     
+    async addRole(req,res){
+      
+        const user = await User.findByIdAndUpdate(req.params.id,{$set:{roles:req.body.roles}});
+        if(!user)
+            return res.json('not Found');
+
+        res.redirect('/admin/user');
+    }
+
 }

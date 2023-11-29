@@ -29,6 +29,12 @@ userController.validator,
 userController.update);
 
 router.get("/adminAccess/:id",
-userController.adminAccess)
+userController.adminAccess);
+
+router.get('/addRole/:id',
+userController.showAddRolePage)
+
+router.put('/addRole/:id',
+userController.addRole)
 
 module.exports = router;

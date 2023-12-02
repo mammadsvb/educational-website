@@ -8,6 +8,7 @@ const passport = require('passport');
 const methodOverride = require('method-override');
 const Helper = require('./helper');
 
+const access = require('./src/middlewares/checkAccessModule')
 const rememberLogin = require('./src/middlewares/rememberLogin');
 
 
@@ -39,6 +40,8 @@ function setconfig(app){
         app.locals = new Helper(req,res).object();
         next();
     });
+
+    app.use(access.middleware())
 }
 
 

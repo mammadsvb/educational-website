@@ -13,6 +13,7 @@ const userRouter = require('../user');
 
 //middlewares
 const checkAccess = require('../../../middlewares/checkAccessUser')
+const access = require('../../../middlewares/checkAccessModule')
 
 const adminController = require('./controller');
 
@@ -25,14 +26,14 @@ router.use((req,res,next)=>{
 router.get('/',
 adminController.showPage) 
 
-router.use('/course' ,checkAccess.check("course"), courseRouter);
-router.use('/episode',checkAccess.check("episode"), episodeRouter);
-router.use('/comment',checkAccess.check("comment"), commentRouter);
-router.use('/article',checkAccess.check("article"), articleRouter);
-router.use('/category',checkAccess.check("category"),categoryRouter);
-router.use('/profile',checkAccess.check("profile"),profileRouter);
-router.use('/permission',checkAccess.check("permission"),permissionRouter);
-router.use('/role',checkAccess.check("role"),roleRouter);
-router.use('/user',checkAccess.check("user"),userRouter);
+router.use('/course' ,access.can("course"), courseRouter);
+router.use('/episode',access.can("episode"), episodeRouter);
+router.use('/comment',access.can("comment"), commentRouter);
+router.use('/article',access.can("article"), articleRouter);
+router.use('/category',access.can("category"),categoryRouter);
+router.use('/profile',access.can("profile"),profileRouter);
+router.use('/permission',access.can("permission"),permissionRouter);
+router.use('/role',access.can("role"),roleRouter);
+router.use('/user',access.can("user"),userRouter);
 
 module.exports = router;

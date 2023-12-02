@@ -105,6 +105,7 @@
                 Addons
             </div>
 
+            <%if(userCan('course')){%> 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCourse"
@@ -121,6 +122,8 @@
                 </div>
             </li>
 
+            <%}%>
+            <%if(userCan('episode')){%> 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEpisode"
@@ -137,6 +140,8 @@
                 </div>
             </li>
 
+            <%}%>
+            <%if(userCan('article')){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArticle"
                     aria-expanded="true" aria-controls="collapseArticle">
@@ -151,7 +156,8 @@
                     </div>
                 </div>
             </li>
-
+            <%}%>
+            <%if(userCan('user')){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
@@ -165,7 +171,8 @@
                         <a class="collapse-item" href="/admin/user">User</a>
                     </div>
             </li>
-
+            <%}%>
+            <%if(userCan('role')){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRole"
                     aria-expanded="true" aria-controls="collapseRole">
@@ -181,6 +188,8 @@
                 </div>
             </li>
 
+            <%}%>
+            <%if(userCan('permission')){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePermission"
                     aria-expanded="true" aria-controls="collapsePermission">
@@ -196,6 +205,8 @@
                 </div>
             </li>
 
+            <%}%>
+            <%if(userCan('category')){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
                     aria-expanded="true" aria-controls="collapseCategory">
@@ -210,7 +221,8 @@
                     </div>
                 </div>
             </li>
-
+            <%}%>
+            <%if(userCan('comment')){%> 
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
@@ -218,7 +230,8 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Comments</span></a>
             </li>
-
+            <%}%>
+            
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

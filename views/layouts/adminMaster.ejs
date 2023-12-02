@@ -105,7 +105,7 @@
                 Addons
             </div>
 
-            <%if(userCan('course')){%> 
+            <%if(userCan('course') && req.user.admin){%> 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCourse"
@@ -123,7 +123,7 @@
             </li>
 
             <%}%>
-            <%if(userCan('episode')){%> 
+            <%if(userCan('episode') && req.user.admin){%> 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEpisode"
@@ -141,7 +141,7 @@
             </li>
 
             <%}%>
-            <%if(userCan('article')){%> 
+            <%if(userCan('article') && req.user.admin){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArticle"
                     aria-expanded="true" aria-controls="collapseArticle">
@@ -157,7 +157,7 @@
                 </div>
             </li>
             <%}%>
-            <%if(userCan('user')){%> 
+            <%if(userCan('user') && req.user.admin){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
@@ -172,7 +172,7 @@
                     </div>
             </li>
             <%}%>
-            <%if(userCan('role')){%> 
+            <%if(userCan('role') && req.user.admin){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRole"
                     aria-expanded="true" aria-controls="collapseRole">
@@ -189,7 +189,7 @@
             </li>
 
             <%}%>
-            <%if(userCan('permission')){%> 
+            <%if(userCan('permission') && req.user.admin){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePermission"
                     aria-expanded="true" aria-controls="collapsePermission">
@@ -206,7 +206,7 @@
             </li>
 
             <%}%>
-            <%if(userCan('category')){%> 
+            <%if(userCan('category') && req.user.admin){%> 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
                     aria-expanded="true" aria-controls="collapseCategory">
@@ -222,7 +222,7 @@
                 </div>
             </li>
             <%}%>
-            <%if(userCan('comment')){%> 
+            <%if(userCan('comment') && req.user.admin){%> 
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">

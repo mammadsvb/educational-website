@@ -51,6 +51,14 @@ userSchema.methods.comparePass = function(password){
 
 }
 
+userSchema.methods.hasRole = function(roles){
+
+    const result = roles.filter(role => this.roles.indexOf(role) != -1);
+
+    return !! result.length;
+}
+
+
 userSchema.methods.setRememberToken = function(res){
 
     const token = uniqueString();

@@ -1,11 +1,15 @@
 const express = require("express");
 const app = express();
+const { createServer } = require('node:http');
 const mongoose = require('mongoose');
 const setconfig = require('./config');
 const router = require('./src/routes/main');
 require('dotenv').config();
 require('app-module-path').addPath(__dirname);
+const { Server } = require('socket.io');
 
+const server = createServer(app);
+const io = new Server(server);
 
 
 // global.Promise = mongoose.Promise;
@@ -19,9 +23,12 @@ setconfig(app);
 app.use('/',router);
 
 
+io.on('connection', (socket) => {
+    console.log('a user connected');
+});
 
 const port = process.env.PORT || 3000;
-app.listen(port ,(err)=>{
+server.listen(port ,(err)=>{
     if(err) console.log(err);
     console.log(`connected to port ${port}`)
 })

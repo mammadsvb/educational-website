@@ -19,7 +19,7 @@ module.exports = new class{
         io.on('connection',(socket)=>{
 
             socket.on('join',(query,cb)=>{
-                if(query.room == '' | !query.room){
+                if(query.room == '' || !query.room || (query.room !== 'Forum1' && query.room !== 'Forum2' && query.room !== 'Forum3')){
                     cb('room not found')
                 }else{
                     socket.join(query.room); // create section

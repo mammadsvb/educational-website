@@ -67,7 +67,7 @@
 
         socket.emit('join',query,(err)=>{
             if(err){
-                alert(err);
+                "<% req.flash('sweetalert','room not found')%>"
                 window.location.href = '/admin/chat';
             }else{
                 console.log('not error');
@@ -108,6 +108,6 @@
             $('#chat-box').append('<div class ="alert alert-info"><p>'+msg.sender+':</p>'+'<p class="ml-5">'+msg.message+'</p>'+'</div>')
         })
 
-        
+
     })
 </script>

@@ -28,13 +28,21 @@
     </div>
 </div>
 
-<script>
-    $('form').submit(function(e){
-        if($('#room').val() == null) {
-            alert('select your forum')
-            return false;
-        }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        return true;
-    })
-</script>
+<% const sweetalert = req.flash('sweetalert') %>
+<% if(sweetalert.length){%> 
+    
+    <script>
+        console.log("<%= sweetalert %>")
+        Swal.fire({
+            title: 'Error!',
+            text: "<%= sweetalert %>",
+            icon: 'error',
+            confirmButtonText: 'OK'
+            })
+
+    </script>
+    
+<%}%>
+    

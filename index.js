@@ -8,9 +8,12 @@ require('dotenv').config();
 require('app-module-path').addPath(__dirname);
 const { Server } = require('socket.io');
 
+const chatController = require('./src/routes/admin/chat/controller')
+
 const server = createServer(app);
 const io = new Server(server);
 
+chatController.connectToSocket(io)
 
 // global.Promise = mongoose.Promise;
 mongoose.connect('mongodb://127.0.0.1/Test')
@@ -23,9 +26,7 @@ setconfig(app);
 app.use('/',router);
 
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-});
+
 
 const port = process.env.PORT || 3000;
 server.listen(port ,(err)=>{

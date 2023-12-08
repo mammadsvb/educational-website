@@ -10,6 +10,7 @@ const profileRouter = require('../profile');
 const permissionRouter = require('../permission');
 const roleRouter = require('../role');
 const userRouter = require('../user');
+const chatRouter = require('../chat');
 
 //middlewares
 const checkAccess = require('../../../middlewares/checkAccessUser')
@@ -35,5 +36,6 @@ router.use('/profile',access.can("profile"),profileRouter);
 router.use('/permission',access.can("permission"),permissionRouter);
 router.use('/role',access.can("role"),roleRouter);
 router.use('/user',access.can("user"),userRouter);
+router.use('/chat',access.can("chat"),chatRouter);
 
 module.exports = router;

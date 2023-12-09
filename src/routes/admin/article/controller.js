@@ -12,16 +12,24 @@ const sharp = require('sharp');
 module.exports = new class extends Controller{
 
     async showPage(req,res){
-        const articles = await Article.find({});
+        try{
+            const articles = await Article.find({});
 
-        res.render('pages/admin/article/article',{articles})
+            res.render('pages/admin/article/article',{articles})
+        }catch(err){
+            console.err(err)
+        }
     }
 
     async showCreatePage(req,res){
-
-        const categoreis = await Category.find({})
+        try{
+            const categoreis = await Category.find({})
         
-        res.render('pages/admin/article/createArticle',{massages:req.flash('errors'),success : req.flash('success'),categoreis});
+            res.render('pages/admin/article/createArticle',{massages:req.flash('errors'),success : req.flash('success'),categoreis});
+        }catch(err){
+            console.error(err);
+        }
+        
     }
 
     validator(req,res,next){
@@ -125,35 +133,47 @@ module.exports = new class extends Controller{
     }
 
     async destroy(req,res){
-        const deleteArticle = await Article.findByIdAndDelete(req.params.id);
-        if(!deleteArticle)
-            res.json('ridi');
+       try{
+            const deleteArticle = await Article.findByIdAndDelete(req.params.id);
+            if(!deleteArticle)
+                throw new Error('article not found')
 
-        Object.values((deleteArticle.images)).forEach(image=>fs.unlinkSync(`./public/${image}`,err=>req.flash('errors',err)));
+            Object.values((deleteArticle.images)).forEach(image=>fs.unlinkSync(`./public/${image}`,err=>req.flash('errors',err)));
 
-        return res.redirect('/admin/article');
+            return res.redirect('/admin/article');
+       }catch(err){
+            console.error(err)
+       }
     }
 
     async showEditPage(req,res){
-        const article = await Article.findById(req.params.id);
-        const categoreis = await Category.find();
+        try{
+            const article = await Article.findById(req.params.id);
+            const categoreis = await Category.find();
 
-        res.render('pages/admin/article/editArticle',{massages:req.flash('errors'),article,categoreis})
+            res.render('pages/admin/article/editArticle',{massages:req.flash('errors'),article,categoreis})
+        }catch(err){
+            console.error(err)
+        }
     }
 
     async update(req,res){
-        if(req.file){
+        try{
+            if(req.file){
+                req.body.images = this.resizeImage(req.file)
+            }
+    
+            const updateArticle = await Article.findByIdAndUpdate(req.params.id,{$set:{...req.body}});
+    
+            if(req.file)
+                Object.values((updateArticle.images)).forEach(image => fs.unlinkSync(`./public/${image}`,err => req.flash('errors',err)));
+    
+    
+            return res.redirect('/admin/article');
 
-            req.body.images = this.resizeImage(req.file)
+        }catch(err){
+            console.error(err)
         }
-
-        const updateArticle = await Article.findByIdAndUpdate(req.params.id,{$set:{...req.body}});
-
-        if(req.file)
-            Object.values((updateArticle.images)).forEach(image => fs.unlinkSync(`./public/${image}`,err => req.flash('errors',err)));
-
-
-        return res.redirect('/admin/article');
     }
 
 }

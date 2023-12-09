@@ -5,17 +5,25 @@ const Category = require('../../../models/category');
 module.exports = new class extends Controller{
 
     async showPage(req,res){
-        const categories = await Category.find({}).populate('parent');
+        try{
+            const categories = await Category.find({}).populate('parent');
+            
+            res.render('pages/admin/category/category',{categories})
 
-        // return res.json(categories)
-        res.render('pages/admin/category/category',{categories})
+        }catch(err){
+            console.error(err)
+        }
     }
 
 
     async showCreatePage(req,res){
-        const categories = await Category.find({parent:null});
-
-        res.render('pages/admin/category/createCategory',{massages:req.flash('errors'),success:req.flash('success'),categories})
+        try{
+            const categories = await Category.find({parent:null});
+    
+            res.render('pages/admin/category/createCategory',{massages:req.flash('errors'),success:req.flash('success'),categories})
+        }catch(err){
+            console.error(err)
+        }
 
     }
 
@@ -24,51 +32,72 @@ module.exports = new class extends Controller{
     }
 
     async createCategory(req,res){
-        const {name,parent} = req.body;
 
+        try{
+    
+            const {name,parent} = req.body;
+    
+    
+            const newCategory = new Category({
+                name,
+                parent : parent ? parent : null
+            });
+    
+            await newCategory.save();
+    
+            req.flash('success','category added');
+            return this.back(req,res);
 
-        const newCategory = new Category({
-            name,
-            parent : parent ? parent : null
-        });
-        
-        // console.log(newCategory);
-
-        await newCategory.save();
-
-        req.flash('success','category added');
-        return this.back(req,res);
+        }catch(err){
+            console.error(err)
+        }
     }
 
     async destroy(req,res){
-        const deleteCategory = await Category.findByIdAndDelete(req.params.id).populate('childs');
-        if(!deleteCategory)
-            return res.json('this category doesn\'t exist');
-    
-        deleteCategory.childs.forEach(async(child) => await Category.findByIdAndDelete(child._id));
 
-        return this.back(req,res);
+        try{
+    
+            const deleteCategory = await Category.findByIdAndDelete(req.params.id).populate('childs');
+            if(!deleteCategory)
+               throw new Error('category not found');
+        
+            deleteCategory.childs.forEach(async(child) => await Category.findByIdAndDelete(child._id));
+    
+            return this.back(req,res);
+
+        }catch(err){
+            console.error(err)
+        }
     }
 
 
     async showEditPage(req,res){
-        
-        const categories = await Category.find({parent:null});
-        const category = await Category.findById(req.params.id).populate('parent');   
-        
-        res.render('pages/admin/category/editCategory',{massages:req.flash('errors'),categories,category});
+        try{
+            const categories = await Category.find({parent:null});
+            const category = await Category.findById(req.params.id).populate('parent');   
+            
+            res.render('pages/admin/category/editCategory',{massages:req.flash('errors'),categories,category});
+        }catch(err){
+            console.error(err)
+        }
     }
 
 
     async update(req,res){
+        try{
+            const {name,parent} = req.body;
+            
+            const updateCategory = await Category.findByIdAndUpdate(req.params.id,{$set:{
+                name,
+                parent : parent ? parent : null
+            }});
+            if(!updateCategory)
+                throw new Error('category not found');
+            
+            res.redirect('/admin/category');
 
-        const {name,parent} = req.body;
-        
-        const updateCategory = await Category.findByIdAndUpdate(req.params.id,{$set:{
-            name,
-            parent : parent ? parent : null
-        }});
-
-        res.redirect('/admin/category');
+        }catch(err){
+            console.error(err)
+        }
     }
 }

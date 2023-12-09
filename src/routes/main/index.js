@@ -17,6 +17,10 @@ router.use('/',homeRouter);
 router.use('/auth',redirectAuth.handle,registerRouter,loginRouter,passResetRouter);
 router.use('/admin',adminRedirect.handle,adminRouter);
 
+router.all('*',(req,res)=>{
+    res.render('pages/error/404')
+});
+
 
 
 module.exports = router;

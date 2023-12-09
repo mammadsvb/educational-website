@@ -15,7 +15,7 @@ const adminRedirect = require('../../middlewares/adminRedirect')
 
 router.use('/',homeRouter);
 router.use('/auth',redirectAuth.handle,registerRouter,loginRouter,passResetRouter);
-router.use('/admin',adminRouter);
+router.use('/admin',adminRedirect.handle,adminRouter);
 
 
 

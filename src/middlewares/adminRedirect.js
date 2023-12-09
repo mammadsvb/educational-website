@@ -8,7 +8,7 @@ module.exports = new class extends Middleware {
             next();
         
         else
-            res.redirect('/')
+            res.redirect('/auth/login')
     }
 
 }

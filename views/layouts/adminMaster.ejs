@@ -212,6 +212,23 @@
                 </div>
             </li>
             <%}%>
+            <%if(userCan('forum') && req.user.admin){%> 
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForum"
+                        aria-expanded="true" aria-controls="collapseForum">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Forum</span>
+                    </a>
+                    <div id="collapseForum" class="collapse" aria-labelledby="headingForum" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Forum:</h6>
+                            <a class="collapse-item" href="/admin/forum/create">Create Forum</a>
+                            <a class="collapse-item" href="/admin/forum">Forum</a>
+                        </div>
+                    </div>
+                </li>
+                <%}%>
+
             <%if(userCan('comment') && req.user.admin){%> 
 
             <!-- Nav Item - Tables -->

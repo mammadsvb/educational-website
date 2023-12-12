@@ -37,6 +37,7 @@ router.use('/profile',access.can("profile"),profileRouter);
 router.use('/permission',access.can("permission"),permissionRouter);
 router.use('/role',access.can("role"),roleRouter);
 router.use('/user',access.can("user"),userRouter);
+router.use('/chat',access.can("user"),chatRouter);
 router.use('/forum',access.can("forum"),forumRouter);
 
 module.exports = router;

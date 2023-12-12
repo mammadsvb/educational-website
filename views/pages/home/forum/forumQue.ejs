@@ -1,0 +1,61 @@
+<% if(massages.length) { %>
+  <div class="alert alert-danger" role="alert">
+      
+      <% massages.forEach(msg=>{ %>
+          
+          <p><%= msg %></p>  
+      
+      <% }) %>
+  </div>
+<% } %>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Questions</th>
+        <th scope="col">Replies</th>
+        <th scope="col">Last Update</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <%ques.docs.forEach(que=>{%> 
+            
+            <tr>
+
+                <td><a href="/forum/answer/<%=que._id%>"><%= que.name %></a></td>
+                <td><%=que.countQue%></td>
+                <td><%=que.countAns%></td>
+                <td><%= convertTime(que.updatedAt).fromNow() %></td>
+                
+            </tr>      
+                   
+        <%})%>
+    </tbody>
+
+  </table>
+  
+  <%- include('../../../partials/paginate',{pagination:ques,baseUrl:`forum/${req.params.id}`}) %>
+
+  <div class="mt-5">
+
+    <form action="/forum/<%= req.params.id %>" method="POST">
+      <input type="hidden" name="forum" value="<%=req.params.id %>">
+
+      <div class="mb-3">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+      </div>
+
+      <div class="my-3">
+
+        <label for="body" class="form-label fw-medium">Question:</label>
+        <textarea class="form-control" name="body" id="body" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Question</button>
+    </form>
+
+  </div>
+  
+

@@ -1,0 +1,82 @@
+<% if(massages.length) { %>
+  <div class="alert alert-danger" role="alert">
+      
+      <% massages.forEach(msg=>{ %>
+          
+          <p><%= msg %></p>  
+      
+      <% }) %>
+  </div>
+<% } %>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Q&A Page</h2>
+
+  <div class="accordion" id="qaAccordion">
+
+      <!-- Question 1 -->
+      <div class="card">
+          <div class="card-header" id="question1">
+              <h5 class="mb-0"> <%=que.name%> </h5>
+          </div>
+
+          <div id="answer1" class="collapse show" aria-labelledby="question1" data-parent="#qaAccordion">
+              <div class="card-body">
+                  
+                  <%=que.body%>
+
+              </div>
+          </div>
+      </div>
+
+      <!-- Question 2 -->
+      <% forumAns.docs.forEach(forum =>{%> 
+        
+        <div class="card mt-4 mx-3">
+          <div class="card-header" id="question1">
+            <h5 class="mb-0">  <%=forum.name%>  </h5>
+            
+
+          </div>
+  
+          <div id="answer1" class="collapse show" aria-labelledby="question1" data-parent="#qaAccordion">
+           
+            <h5 class="mb-0 mx-1"><%=forum.user.username%>: </h5>
+            <!-- <%= convertTime(forum.updatedAt).fromNow()%> -->
+              <div class="card-body">
+                  
+                  <%=forum.body%>
+  
+              </div>
+          </div>
+      </div>
+        
+        
+      <%})%>
+
+
+      <!-- Add more questions and answers as needed -->
+
+  </div>
+  <%- include('../../../partials/paginate',{pagination:forumAns,baseUrl:`forum/answer/${req.params.id}`}) %>
+</div>
+
+<div class="mt-5 mx-5">
+
+  <form action="/forum/answer/<%= req.params.id %>" method="POST">
+    <input type="hidden" name="question" value="<%=req.params.id %>">
+
+    <div class="mb-3">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+    </div>
+
+    <div class="my-3">
+
+      <label for="body" class="form-label fw-medium">Answer:</label>
+      <textarea class="form-control" name="body" id="body" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Answer</button>
+  </form>
+
+</div>

@@ -3,6 +3,7 @@ const router = express.Router();
 const homeController =  require('./controller');
 
 const commentRouter = require('./comment');
+const forumRouter = require('./forum')
 
 router.get('/',
 homeController.showPage);
@@ -26,5 +27,6 @@ router.get('/articles',
 homeController.showArticles)
 
 router.use('/comment',commentRouter)
+router.use('/forum',forumRouter)
 
 module.exports = router;

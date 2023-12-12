@@ -1,0 +1,33 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Questions</th>
+        <th scope="col">Replies</th>
+        <th scope="col">Last Update</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <%forums.docs.forEach((forum,i)=>{%> 
+            
+            <tr>
+                <th scope="row"><%=i%></th>
+                <td><a href="/forum/<%=forum.id%>"><%= forum.name %></a></td>
+                <td><%=forum.questions.length%></td>
+                <% let count = 0 %>
+                <% forum.questions.forEach(que=>{%>
+                  <%count += que.countAns;%>
+                <%})%>
+                <td><%=count%></td>
+                <td><%= convertTime(forum.updatedAt).fromNow() %></td>
+                
+            </tr>      
+                   
+        <%})%>
+    </tbody>
+
+  </table>
+
+  <%- include('../../../partials/paginate',{pagination:forums,baseUrl:'forum'}) %>
